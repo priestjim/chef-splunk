@@ -19,6 +19,9 @@ default['splunk']['accept_license'] = false
 default['splunk']['is_server']      = false
 default['splunk']['receiver_port']  = '9997'
 default['splunk']['web_port']       = '443'
+default['splunk']['use_vault']      = true
+default['splunk']['data_bag']       = 'splunk'
+default['splunk']['data_bag_item']  = 'credentials'
 
 default['splunk']['user'] = {
   'username' => 'splunk',

@@ -25,7 +25,14 @@ include_recipe 'chef-splunk::setup_auth'
 
 # We can rely on loading the chef_vault_item here, as `setup_auth`
 # above would have failed if there were another issue.
-splunk_auth_info = chef_vault_item(:vault, "splunk_#{node.chef_environment}")['auth']
+if node['splunk']['use_vault']
+  splunk_auth_info = chef_vault_item(:vault, "splunk_#{node.chef_environment}")['auth']
+else
+  credentials = Chef::EncryptedDataBagItem.load(node['chef']['data_bag'], node['chef']['data_bag_item'])
+  user = credentials[node.chef_environment]['auth']['username']
+  pw = credentials[node.chef_environment]['auth']['password']
+  splunk_auth_info = "#{user}:#{pw}"
+end
 
 execute 'enable-splunk-receiver-port' do
   command "#{splunk_cmd} enable listen #{node['splunk']['receiver_port']} -auth '#{splunk_auth_info}'"
