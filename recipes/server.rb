@@ -28,7 +28,7 @@ include_recipe 'chef-splunk::setup_auth'
 if node['splunk']['use_vault']
   splunk_auth_info = chef_vault_item(:vault, "splunk_#{node.chef_environment}")['auth']
 else
-  credentials = Chef::EncryptedDataBagItem.load(node['chef']['data_bag'], node['chef']['data_bag_item'])
+  credentials = Chef::EncryptedDataBagItem.load(node['splunk']['data_bag'], node['splunk']['data_bag_item'])
   user = credentials[node.chef_environment]['auth']['username']
   pw = credentials[node.chef_environment]['auth']['password']
   splunk_auth_info = "#{user}:#{pw}"

@@ -24,7 +24,7 @@ if node['splunk']['use_vault']
   user, pw = splunk_auth_info.split(':')
 
 else
-  credentials = Chef::EncryptedDataBagItem.load(node['chef']['data_bag'], node['chef']['data_bag_item'])
+  credentials = Chef::EncryptedDataBagItem.load(node['splunk']['data_bag'], node['splunk']['data_bag_item'])
   user = credentials[node.chef_environment]['auth']['username']
   pw = credentials[node.chef_environment]['auth']['password']
 end

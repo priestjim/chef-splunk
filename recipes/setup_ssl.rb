@@ -33,7 +33,7 @@ certs = chef_vault_item(
   ssl_options['data_bag_item']
 )['data']
 else
-  certs = Chef::EncryptedDataBagItem.load(ssl_options['data_bag'], ssl_options['data_bag_item'])['ssl']
+  certs = Chef::EncryptedDataBagItem.load(ssl_options['data_bag'], ssl_options['data_bag_item'])
 end
 # ensure that the splunk service resource is available without cloning
 # the resource (CHEF-3694). this is so the later notification works,
