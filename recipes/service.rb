@@ -60,6 +60,7 @@ def chown_r_splunk(triggerfile, user)
     block do
       FileUtils.chown_R(user, user, splunk_dir)
     end
+    ignore_failure true
     only_if { ::File.stat(triggerfile).uid.eql?(0) }
   end if node['splunk']['is_server']
 end
